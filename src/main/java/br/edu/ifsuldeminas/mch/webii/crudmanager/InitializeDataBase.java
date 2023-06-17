@@ -1,5 +1,7 @@
 package br.edu.ifsuldeminas.mch.webii.crudmanager;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +38,14 @@ public class InitializeDataBase implements CommandLineRunner{
 		
 		userRepository.save(deyvison);
 		userRepository.save(luiza);
-		userRepository.save(le);		
+		userRepository.save(le);
+		
+		List<User> users = userRepository.findAll();
+		
+		for (User user : users) {
+			 System.err.println(user.getName());
+	         System.err.println(user.getEmail());
+	         System.err.println(user.getGender());
+		}
 	}
 }
