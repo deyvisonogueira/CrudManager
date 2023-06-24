@@ -14,38 +14,38 @@ import br.edu.ifsuldeminas.mch.webii.crudmanager.model.dao.UserRepository;
 @Component
 @Transactional
 public class InitializeDataBase implements CommandLineRunner{
-	
+
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@Override
-	public void run(String...args) throws Exception{
-		
+	public void run(String... args) throws Exception {
 		User deyvison = new User();
 		deyvison.setName("Deyvison");
-		deyvison.setEmail("deyvison@mail.com");
+		deyvison.setEmail("deyvison@gmail.com");
 		deyvison.setGender("M");
-		
+
 		User luiza = new User();
 		luiza.setName("Luiza");
-		luiza.setEmail("luiza@mail.com");
+		luiza.setEmail("luiza@gmail.com");
 		luiza.setGender("F");
-		
-		User le = new User();
-		le.setName("Le");
-		le.setEmail("le@mail.com");
-		le.setGender("F");
-		
+
+		User nogueira = new User();
+		nogueira.setName("Nogueira");
+		nogueira.setEmail("nogueira@gmail.com");
+		nogueira.setGender("M");
+
 		userRepository.save(deyvison);
 		userRepository.save(luiza);
-		userRepository.save(le);
-		
-		List<User> users = userRepository.findAll();
-		
+		userRepository.save(nogueira);
+
+		List<User> users = userRepository.findAll(); // disparou um select 
+
 		for (User user : users) {
-			 System.err.println(user.getName());
-	         System.err.println(user.getEmail());
-	         System.err.println(user.getGender());
+			System.err.println(user.getName());
+			System.err.println(user.getEmail());
+			System.err.println(user.getGender());
 		}
 	}
 }
+
