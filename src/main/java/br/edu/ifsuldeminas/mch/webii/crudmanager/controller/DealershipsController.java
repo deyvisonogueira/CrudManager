@@ -2,10 +2,14 @@ package br.edu.ifsuldeminas.mch.webii.crudmanager.controller;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,8 +44,14 @@ public class DealershipsController {
 	}
 
 	@PostMapping("/dealerships/new")
-	public String dealershipNew(@ModelAttribute("dealership") Dealership dealership) {
-
+	public String dealershipNew(@Valid @ModelAttribute("dealership")Dealership dealership, BindingResult bindingResult, Model model) {
+		
+		if (bindingResult.hasErrors()) {
+			List<Vehicle> vehicles = vehicleRepository.findAll();
+			model.addAttribute("vehicles", vehicles);
+			return "dealership_form";
+			
+		}
 		dealershipRepository.save(dealership);
 
 		return "redirect:/dealerships";
@@ -50,8 +60,6 @@ public class DealershipsController {
 	@GetMapping("/dealerships/update/{id}")
 	public String dealershipUpdate(@PathVariable("id") Integer id, Model model) {
 		
-		//List<Vehicle> vehicles = vehicleRepository.findAll();
-		//model.addAttribute("vehicle", vehicles);
 
 
 		Optional<Dealership> optDealership = dealershipRepository.findById(id);

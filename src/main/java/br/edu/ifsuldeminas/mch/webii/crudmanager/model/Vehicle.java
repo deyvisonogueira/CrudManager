@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +20,14 @@ public class Vehicle {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+    
+    @NotBlank(message = "Preencha um modelo de veículo.")
     private String model;
+    
+    @NotBlank(message = "Preencha uma cor.")
     private String color;
+    
+    @NotBlank(message = "Ano não pode ser vazio.")
     private String manufacture_year;
 
     @ManyToMany(mappedBy = "vehicles", fetch = FetchType.EAGER)
@@ -70,7 +78,7 @@ public class Vehicle {
 		return dealership;
 	}
 
-	public void setDealerships(List<Dealership> dealership) {
+	public void setDealership(List<Dealership> dealership) {
 		this.dealership = dealership;
 	}
 

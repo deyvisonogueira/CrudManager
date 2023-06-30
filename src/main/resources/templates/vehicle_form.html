@@ -12,10 +12,16 @@
         <form action="#" th:action="@{/vehicles/new}" th:object="${vehicle}" method="POST">
             <input type="hidden" th:field="*{id}">
             
+            <span th:if="${#fields.hasErrors('model')}"th:errors="*{model}" class="text-danger"></span>
+
             <input type="text" th:field="*{model}" placeholder="Modelo" class="form-control mb-4 col-4">
             
+            
+            <span th:if="${#fields.hasErrors('color')}"th:errors="*{color}" class="text-danger"></span>
             <input type="text" th:field="*{color}" placeholder="Cor" class="form-control mb-4 col-4">
             
+            
+            <span th:if="${#fields.hasErrors('manufacture_year')}"th:errors="*{manufacture_year}" class="text-danger"></span>
             <input type="text" th:field="*{manufacture_year}" placeholder="Ano" class="form-control mb-4 col-4">
             
             <select th:field="*{dealership}" class="form-select mb-4 col-4">
